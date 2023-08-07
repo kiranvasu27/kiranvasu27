@@ -1,0 +1,282 @@
+create database <database name>
+
+CREATE DATABASE july_20;
+
+create table table_name(
+   coloumn names datatype int varchar bigint     
+);
+
+use july_20;
+CREATE TABLE person(
+         id int (255),
+		name varchar(50) 
+);
+
+
+insert into tablename(coloum_name) values(values);
+
+INSERT INTO person (id,name) VALUES(1,"Meet");
+
+INSERT INTO person (id,name) VALUES(2,"Bhavik");;
+INSERT INTO person (id,name) VALUES(3,"Megha");
+
+
+
+-------------------------------------------------------------------------------
+
+DROP TABLE<TABLE_NAME>
+-------------------------------------
+CREATE TABLE customer (
+       id int AUTO_INCREAMENT PRIMARY KEY NOT NULL,
+	   name varchar(255),
+	   surname varchar(20),
+	   email varchar(255)
+);
+
+------------------------------------------------------
+
+ALTER TABLE coustomer ADD mobile int(10);
+
+
+-----------------------------------------
+UPDATE 'customer' SET 'mobile' = '2545323237' WHERE 'coustomer'.'id' = 1
+
+ALTER TABLE coustomer DROP surname; 
+
+
+===================================================================
+
+
+
+
+
+
+
+USE july_20;
+CREATE TABLE salary (
+         id int PRIMARY KEY AUTO_INCREAMENT NOT NULL,
+		 name varchar(50),
+         salary bigint(255),
+         Email varchar(255)
+);
+
+
+--------------------------------------------------------
+
+INSERT INTO orders(id,name.mobile) VALUES(1,"Bhavik",947565758);
+
+ALTER TABLE orders DROP mobile
+
+ALTER TABLE 'person' CHANGE 'id' 'id' INT(255) NULL DEFAULT NULL AUTO_INCREAMENT, add PRIMARY KEY('id');
+
+
+----------------------------------
+
+SELECT * FROM 'orders' WHERE id=4;
+
+
+SELECT MAX (salary) FROM salary;
+SELECT MIN (salary) FROM salary;
+SELECT SUM (salary) FROM salary;
+SELECT AVG (salary) FROM salary;
+SELECT COUNT (salary) FROM salary;
+
+SELECT salary FROM salary ORDER BY salary;
+
+SELECT salary FROM salary ORDER BY salary DESC;
+
+
+=========================================
+
+>>>>>>>second largest number 
+SELECT MAX (coloum_name) FROM table_name;
+
+=================
+
+
+>>>>>>>SUM of all numbers
+SELECT SUM (coloum_name) FROM 'table_name'
+
+=======================================
+>>>>>>>>Avarage of all numbers
+SELECT AVG (coloum_name) FROM table_name;
+
+===========
+
+
+
+>>>>>>>FOREING KEY
+
+CREATE TABLE  table_name(
+coloum_name,
+coloum_name(),
+foreign key name(),
+    FOREIGN KEY (foreign key name) REFERENCES salary(id)
+);
+
+
+
+ex:
+CREATE TABLE orders1(
+id int AUTO_INCREAMENT PRIMARY KEY NOT NULL,
+name varchar(255) NOT NULL,
+age int (255)NOT NULL,
+sa_id int(255),
+   FOREIGN KEY (sa_id) REFERENCES salary(id)
+);
+
+
+==================================================
+ALTER table_name ADD coloum_name 'datatype' NOT NULL FOREIGN KEY 'datatype'(coloum_name) REFRENCES coloum_name(id)
+
+=====================================================================
+
+Joins: To merges the tables
+
+>>Types of Joins - 
+1.Inner join
+2.Full Join
+3.Left join
+4.Right join
+
+==========================================
+
+>>>>>>SYNYTEX<<<<<<<<<<<<<<<
+
+***Inner Join***
+
+Syntax:
+select table_name.coloum_name,coloum_name,table_name.coloum_name from table1 inner join table2 on table_name.coloum_name=table_name.coloum_name
+
+Ex:
+SELECT officers.officers_name,address,students.students_course FROM officers
+INNER JOIN students
+ON officers.officers_id=students_id;
+
+------------------------
+
+***left join***
+Syntax:
+select coloums from table1
+from table1
+left join table2
+on table1.coloumn=table2.coloumn
+ 
+Ex:
+SELECT officers.officers_name,address,students.students_course FROM officers 
+LEFT Join students ON officers.officers_id=students.students_id;
+
+
+--------------------------
+***right join***
+Syntax:
+select coloums from table1
+from table1
+right join table2
+on table1.coloumn=table2.coloumn
+
+Ex:
+SELECT officers.officers_name,address,students.students_course FROM officers 
+right Join students ON officers.officers_id=students.students_id; 
+
+
+========================
+
+Trigger:-
+
+Syntax : 
+
+CREATE Trigger trigger_name
+{BEFORE | AFTER} {INSERT | UPDATE | DELETE }
+ON table_name FOR EACH ROW
+trigger_body;
+
+
+Trigger : 
+A trigger is a set of actions that are run automatically when a specified change operation (SQL INSERT, UPDATE, OR DELETE statement) is performed on a specified table.
+Trigger are useful for task such as enforcing bussiness rules, validating input data, and keeping an audit trail.
+
+1- 
+
+create table employees(
+employeeNumber int PRIMARY KEY AUTO_INCREAMENT NOT NULL
+  lname varchar(20) NOT NULL,
+  fname varchar(20) NOT NULL,
+  email varchar(20) NOT NULL
+  );
+
+
+2-
+INSERT INTO employees(fname,lname,email) 
+VALUES("jitesh","kajeria","j@gmail.com"),
+("mitesh","dajeria","m@gmail.com"),
+("ritesh","rajeria","r@gmail.com"),
+("nitesh","tajeria","n@gmail.com");
+
+3-
+CREATE TABLE employees_audit(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    employeeNumber INT NOT NULL,
+    lname varchar(50) NOT NULL,
+    changedat DATETIME DEFAULT NULL,
+    action VARCHAR(50) DEFAULT NULL
+);
+
+NEXT, create a Before update trigger that is invoked before  a change is amde to the employee table.
+
+CREATE TRIGGER befoe_employee_update
+    BEFORE UPDATE on employees
+    FOR EACH ROW 
+  INSERT INTO employees_audit
+  SET action = 'update',
+      employeeNumber = OLD.employeeNUMBER,
+      lastname = OLD.lname,
+      changedat = NOW();
+	  
+-------
+Inside the body of the trigger, we used the OLD keyword to access values of the coloums employeeNumber and lastname of the row  affected by the trigger.
+
+-----
+
+Then, shoe all triggers in the current database by using the SHOW TRIGGERS statement:
+
+SHOW TRIGGERS;	 
+
+------
+
+After that, update a row in the employees table:
+
+-----
+
+UPDATE employees
+SET
+   lname = 'kankaria' 
+WHERE
+   employeeNumber = 1;
+   
+-------
+
+Finally, query the employee_audit table to check if the trigger was fired by the UPDATE statement:
+
+-
+SELECT * FROM employees_audit;
+
+-----
+Aas you see clearly from the output,the trigger was automatically invoked and inserted a new row into the employees_audit table.   
+	  
+	  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,8 @@
+
+git clone <paste url>
+
+close the terminal and go inside the folder then right click again git bash
+
+git add .
+git commit -m"commit"
+git push
